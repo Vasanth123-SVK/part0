@@ -1,4 +1,4 @@
-Steps to create the diagram:-
+STEPS TO CREATE DIAGRAM:-
 
 sequenceDiagram
     Title: 0.4: new note
