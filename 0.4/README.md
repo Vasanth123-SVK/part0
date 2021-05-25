@@ -1,39 +1,25 @@
 Steps to create the diagram:-
 
-title 0.4 \nCreate a new note \nat https://fullstack-exampleapp.herokuapp.com/notes
+sequenceDiagram
+    Title: 0.4: new note
 
-note over browser:
-user creates a new note
-by filling the input field
-and clicking the submit button
-end note
+    loop POST Method
+        browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa
+        server-->browser: HTML
+        browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+        server-->browser: main.css
+        browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.js
+        server-->browser: main.js
 
-browser->server: HTTP POST https://fullstack-exampleapp.herokuapp.com/new_note
+        note over browser: browser starts executing js code that requests JSON data from server
 
-server-->browser: HTTP Status Code: 302 Found, URL redirect, \nasks browser to make HTTP request to https://fullstack-exampleapp.herokuapp.com/notes
+        browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+        server-->browser: [{ content: "whatever, just a simple content", date: "2020-11-30" }, ...]
 
-browser->server: HTTP GET https://fullstack-exampleapp.herokuapp.com/notes
+        note over browser: browser executes the event handler that renders notes to display
 
-server-->browser: HTML-code
+        browser->server: HTTP POST {note: 'Your inputting content.'}
 
-browser->server: HTTP GET https://fullstack-exampleapp.herokuapp.com/main.css
+        note over browser: browser reloads the page
+    end
 
-server-->browser: main.css
-
-browser->server: HTTP GET https://fullstack-exampleapp.herokuapp.com/main.js
-
-server-->browser: main.js
-
-note over browser:
-browser starts executing js-code
-that requests JSON data from server
-end note
-
-browser->server: HTTP GET https://fullstack-exampleapp.herokuapp.com/data.json
-
-server-->browser: [{"content":"HTML is easy","date":"2019-05-23T17:30:31.098Z"}, ..., \n{"content":"Created new note","date":"2020-05-25T05:10:40.307Z"}]
-
-note over browser:
-browser executes the event handler
-that renders notes to display
-end note
