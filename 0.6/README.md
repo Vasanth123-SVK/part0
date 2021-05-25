@@ -1,22 +1,26 @@
-Steps to create the diagram:-
+STEPS TO CREATE DIAGRAM:-
 
-title 0.6 \nCreate a new note in single page app \nat https://fullstack-exampleapp.herokuapp.com/spa
+sequenceDiagram
+    Title: 0.6: New note
 
-note over browser:
-user creates a new note
-by filling the input field
-and clicking the submit button
-end note
+    browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa
+    server-->browser: HTML
+    browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    server-->browser: main.css
+    browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.js
+    server-->browser: main.js
 
-browser->server: HTTP POST https://fullstack-exampleapp.herokuapp.com/new_note_spa
+    note over browser: browser starts executing js code that requests JSON data from server
 
-note over server:
-server saves the new note
-end note
+    browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    server-->browser: [{ content: "whatever, just a simple content", date: "2020-11-30" }, ...]
 
-server-->browser: HTTP Status Code: 201 Created
+    note over browser: browser executes the event handler that renders notes to display
 
-note over browser:
-browser executes the functions
-that renders notes to display
-end note
+    browser->server: HTTP POST { content: "single page app does not reload the whole page", date: "2020-21-1" }
+
+    note over browser: browser js event handler stop to reload the page
+
+    server-->browser: [{ content: "whatever, just a simple content", date: "2020-11-30" }, ..., { content: "single page app does not reload the whole page", date: "2021-05-25" }]
+
+    note over browser: browser executes the event handler that renders notes to display
